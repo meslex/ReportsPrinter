@@ -1,0 +1,17 @@
+﻿<Window x:Class="Reports.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        
+        xmlns:local="clr-namespace:Reports"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="1004">
+    <StackPanel Orientation="Horizontal">
+        <Button Content="Довідники" HorizontalAlignment="Left" Margin="50,100,0,0" VerticalAlignment="Top" Width="141" Click="ButtonDatabase_Click" Height="108"/>
+        <Button Content="Історія" HorizontalAlignment="Left" Margin="50,100,0,0" VerticalAlignment="Top" Width="141" Click="ButtonHistory_Click" Height="108"/>
+        <Button Content="ExecutorsList" HorizontalAlignment="Left" Margin="50,100,0,0" VerticalAlignment="Top" Width="141" Click="ButtonExecutorsList_Click" Height="108"/>
+        <Button Content="Serialization" HorizontalAlignment="Left" Margin="50,100,0,0" VerticalAlignment="Top" Width="141" Click="ButtonSerialization_Click" Height="108"/>
+
+    </StackPanel>
+</Window>

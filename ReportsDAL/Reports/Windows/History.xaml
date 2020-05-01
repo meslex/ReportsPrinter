@@ -1,0 +1,67 @@
+﻿<Window x:Class="Reports.Windows.History"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Reports.Windows"
+        mc:Ignorable="d"
+        Title="Історія" Height="450" Width="800">
+    <Grid>
+        <StackPanel>
+            <DataGrid x:Name="HistoryGrid" ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="false" HeadersVisibility="Column" MouseDoubleClick="HistoryGrid_MouseDoubleClick">
+                <DataGrid.Resources>
+                    <Style x:Key="errorStyle" TargetType="{x:Type TextBox}">
+                        <!--<Setter Property="Padding" Value="-2"/>-->
+                        <Style.Triggers>
+                            <Trigger Property="Validation.HasError" Value="True">
+                                <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                        Path=(Validation.Errors)[0].ErrorContent}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.Resources>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Path=Id,
+                                 ValidatesOnDataErrors=True}" EditingElementStyle="{StaticResource errorStyle}" />
+                    <DataGridTextColumn Header="Дата Створення" Binding="{Binding Path=Date,
+                                 ValidatesOnDataErrors=True, Converter={StaticResource DateConverter}}" EditingElementStyle="{StaticResource errorStyle}" />
+                    <DataGridTextColumn Header="Договір №" EditingElementStyle="{StaticResource errorStyle}" Binding="{Binding Path=ContractNumber,
+                                 ValidatesOnDataErrors=True}"/>
+                    <DataGridTextColumn Header="Код Грантової Угоди" EditingElementStyle="{StaticResource errorStyle}" Binding="{Binding Path=GrantAgreementNumber,
+                                 ValidatesOnDataErrors=True}"/>
+                    <DataGridTextColumn Header="Ім'я виконавця" EditingElementStyle="{StaticResource errorStyle}" Binding="{Binding Path=ExecutorsName,
+                                ValidatesOnDataErrors=True }"/>
+                </DataGrid.Columns>
+
+                <DataGrid.RowValidationErrorTemplate>
+                    <ControlTemplate>
+                        <Grid Margin="0,-2,0,-2"
+            ToolTip="{Binding RelativeSource={RelativeSource
+            FindAncestor, AncestorType={x:Type DataGridRow}},
+            Path=(Validation.Errors)[0].ErrorContent}">
+                            <Ellipse StrokeThickness="0" Fill="Red" 
+              Width="{TemplateBinding FontSize}" 
+              Height="{TemplateBinding FontSize}" />
+                            <TextBlock Text="!" FontSize="{TemplateBinding FontSize}" 
+              FontWeight="Bold" Foreground="White" 
+              HorizontalAlignment="Center"  />
+                        </Grid>
+                    </ControlTemplate>
+                </DataGrid.RowValidationErrorTemplate>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Видалити звіт з історії" Click="DeleteReport_Click"/>
+                        <MenuItem Header="Змінити звіт" Click="ChangeReport_Click"/>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+            </DataGrid>
+            <!--<StackPanel Orientation ="Horizontal">
+                <Button  x:Name="btnRefreshExecutors" Content="Refresh" Click="BtnRefresh_Click" Padding="4, 2" />
+                <Button  x:Name="btnSaveExecutors" Content="Save" Click="btnSave_Click" Padding="4, 2" />
+                <Button  x:Name="btnAddRowExecutors" Content="Add" Click="btnAddRow_Click" Padding="4, 2" />
+            </StackPanel>-->
+        </StackPanel>
+    </Grid>
+</Window>

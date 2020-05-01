@@ -1,0 +1,74 @@
+﻿<Window x:Class="Reports.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Reports"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="1200">
+    <Grid>
+        <TabControl Name="MyTabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <TabItem x:Name="tabExecutors" Header="Executors">
+                <StackPanel>
+                    <DataGrid x:Name="executorsInventory" ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="false" HeadersVisibility="Column">
+                        <DataGrid.Resources>
+                            <Style x:Key="errorStyle" TargetType="{x:Type TextBox}">
+                                <!--<Setter Property="Padding" Value="-2"/>-->
+                                <Style.Triggers>
+                                    <Trigger Property="Validation.HasError" Value="True">
+                                        <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                        Path=(Validation.Errors)[0].ErrorContent}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.Resources>
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Last Name" Binding="{Binding Path=LastName,
+                                 ValidatesOnDataErrors=True}" EditingElementStyle="{StaticResource errorStyle}" />
+                            <DataGridTextColumn Header="First Name" EditingElementStyle="{StaticResource errorStyle}" Binding="{Binding Path=FirstName,
+                                 ValidatesOnDataErrors=True}"/>
+                            <DataGridTextColumn Header="Patronymic" EditingElementStyle="{StaticResource errorStyle}" Binding="{Binding Path=Patronymic,
+                                 ValidatesOnDataErrors=True}"/>
+                            <DataGridTextColumn Header="Birthday" EditingElementStyle="{StaticResource errorStyle}" Binding="{Binding Path=Birthday,
+                                 ValidatesOnDataErrors=True}"/>
+                            <DataGridTextColumn Header="TIN" EditingElementStyle="{StaticResource errorStyle}"  Binding="{Binding Path=TIN,
+                                 ValidatesOnDataErrors=True}"/>
+                            <DataGridTextColumn Header="Passport.Number"  EditingElementStyle="{StaticResource errorStyle}" Binding="{Binding Path=PassportNumber,
+                                UpdateSourceTrigger=PropertyChanged,
+                                 ValidatesOnDataErrors=True, ValidatesOnExceptions=True,   Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="PassportIssuedBy" EditingElementStyle="{StaticResource errorStyle}"  Binding="{Binding Path=PassportIssuedBy,
+                                 ValidatesOnDataErrors=True}"/>
+                            <DataGridTextColumn Header="PassportDateOfIssue" EditingElementStyle="{StaticResource errorStyle}"  Binding="{Binding Path=PassportDateOfIssue,
+                                 ValidatesOnDataErrors=True}"/>
+                            <DataGridCheckBoxColumn Header="Entrepreneur" IsReadOnly="True"  Binding="{Binding Path=Entrepreneur}" />
+                            <DataGridCheckBoxColumn Header="Changed" IsReadOnly="True"  Binding="{Binding Path=_IsChanged}" />
+                        </DataGrid.Columns>
+
+                        <DataGrid.RowValidationErrorTemplate>
+                            <ControlTemplate>
+                                <Grid Margin="0,-2,0,-2"
+            ToolTip="{Binding RelativeSource={RelativeSource
+            FindAncestor, AncestorType={x:Type DataGridRow}},
+            Path=(Validation.Errors)[0].ErrorContent}">
+                                    <Ellipse StrokeThickness="0" Fill="Red" 
+              Width="{TemplateBinding FontSize}" 
+              Height="{TemplateBinding FontSize}" />
+                                    <TextBlock Text="!" FontSize="{TemplateBinding FontSize}" 
+              FontWeight="Bold" Foreground="White" 
+              HorizontalAlignment="Center"  />
+                                </Grid>
+                            </ControlTemplate>
+                        </DataGrid.RowValidationErrorTemplate>
+                    </DataGrid>
+                    <StackPanel Orientation ="Horizontal">
+                        <Button  x:Name="btnRefreshExecutors" Content="Refresh" Click="BtnRefresh_Click" Padding="4, 2" />
+                        <Button  x:Name="btnSaveExecutors" Content="Save" Click="btnSave_Click" Padding="4, 2" />
+                        <Button  x:Name="btnAddRowExecutors" Content="Add" Click="btnAddRow_Click" Padding="4, 2" />
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

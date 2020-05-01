@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ReportsDAL.Repo.ServiceRepo">
+    <Position X="6" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Repo\ServiceRepo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReportsDAL.Repo.ReportsRepo">
+    <Position X="7.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Repo\ReportsRepo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReportsDAL.Repo.BaseRepo&lt;T&gt;">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAIAgIAAAiAAAgAAAAAAAEAAAAEAAAAAAgAAAAAkAAA=</HashCode>
+      <FileName>Repo\BaseRepo.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ReportsDAL.Repo.DirectionsRepo">
+    <Position X="2.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Repo\DirectionsRepo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReportsDAL.Repo.ExecutorRepo">
+    <Position X="0.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Repo\ExecutorRepo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReportsDAL.Repo.GrantAgreementRepo">
+    <Position X="4" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Repo\GrantAgreementRepo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReportsDAL.EF.ReportEntities">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>oAAAAAAAAAAAAEQAACAAAAAAkAAAAAAABAEIEAAAAAA=</HashCode>
+      <FileName>EF\ReportEntities.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReportsDAL.Migrations.Configuration">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Migrations\Configuration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="ReportsDAL.Repo.IRepo&lt;T&gt;">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAIAAAAAAAAAAAAAAAEAAAAEAAAAAAgAAAAAkAAA=</HashCode>
+      <FileName>Repo\IRepo.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

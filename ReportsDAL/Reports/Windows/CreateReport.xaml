@@ -1,0 +1,202 @@
+﻿<Window x:Class="Reports.CreateReport"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Reports"
+        xmlns:model="clr-namespace:ReportsDAL.Models;assembly=ReportsDAL.Models"
+        mc:Ignorable="d"
+        Title="CreateReport" Height="450" Width="850" Closing="Window_Closing">
+    <Window.Resources>
+        <!--<local:ReportData x:Key="ReportDataSource"/>-->
+
+        <Style TargetType="{x:Type TextBox}">
+            <!--<Setter Property="Padding" Value="-2"/>-->
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                        Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Background="#FFE5E5E5">
+            <Menu  Height="25" AutomationProperties.Name="File Options">
+                <MenuItem Header="File">
+                    <MenuItem  Header="Exit" />
+                </MenuItem>
+                <MenuItem Header="View">
+                    <MenuItem Name="StandardMenu"  IsCheckable="true" IsChecked="True"
+                          Header="Standard" />
+                </MenuItem>
+                <MenuItem Header="Help">
+                    <MenuItem Header="About" />
+                </MenuItem>
+            </Menu>
+            <ToolBar Name="InkToolBar" Height="40">
+                <Border Margin="0,2,0,2.4" Width="280" VerticalAlignment="Center">
+                    <WrapPanel>
+                        <Button Margin="5,0" Click="ButtonCheckInputClick" ToolTip="Друк акту">
+                            <Image Source="C:\Users\meslex\OneDrive - DNU Faculty of Physics, Electronics and Computer Systems\CSharp\Diploma\ReportsDAL\Reports\Icons\PrintStatusBar1_16x.png"/>
+                        </Button>
+                        <Button Margin="5,0" Click="ButtonSaveClick" ToolTip="Зберегти акт до історії">
+                            <Image Source= "C:\Users\meslex\OneDrive - DNU Faculty of Physics, Electronics and Computer Systems\CSharp\Diploma\ReportsDAL\Reports\Icons\SaveStatusBar1_16x.png" />
+                        </Button>
+
+                        <Button Margin="5,0" Click="ButtonDebugClick" ToolTip="Зберегти акт до історії">
+                            Debug
+                         </Button>
+
+                    </WrapPanel>
+                </Border>
+            </ToolBar>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto" MinWidth="100"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto" MinWidth="100"/>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" MinWidth="100"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Content="Виконавець:" Margin="5" />
+                <TextBox  Name="ExecutorNameTextBox" Grid.Column="1" Margin="5" IsReadOnly="True"/>
+                <Label Grid.Column="2" Content="Договір:" Margin="5"/>
+                <ComboBox Name="ContractCombobox" Grid.Column="3" DisplayMemberPath="Number" Margin="5" SelectedIndex="0" ItemsSource ="{Binding}" SelectionChanged="ContractCombobox_SelectionChanged"/>
+                <Label Grid.Column="4" Content="Грантова угода:" Margin="5"/>
+                <ComboBox Name="GrantAgreementCombobox" Grid.Column="5" DisplayMemberPath="Number" Margin="5" SelectedIndex="0" ItemsSource ="{Binding}" SelectionChanged="GrantAgreementCombobox_SelectionChanged"/>
+
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto" MinWidth="100"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Content="Номер Акту:" Margin="5" />
+                <TextBox local:NumberOnlyBehaviour.IsEnabled="True" Name ="NumberTextBox" Grid.Column="1" Margin="5">
+                    <!-- Text="{Binding Source={StaticResource ReportDataSource}, 
+UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Path=Number}" -->
+
+                </TextBox>
+
+                <Label Grid.Column="2" Content="від:" Margin="5"/>
+                <DatePicker DataContext="{Binding}" Name ="ReportDatePicker" Grid.Column="3"  HorizontalAlignment="Right" Margin="5" />
+            </Grid>
+            <!--<Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Content="Виконавець:" Margin="5" />
+                <ComboBox Name ="ComboboxExecutors" DisplayMemberPath="FullName" ItemsSource="{Binding}" Grid.Column="1" Margin="5" IsEditable="True"/>
+            </Grid>-->
+        </StackPanel>
+        <Grid DockPanel.Dock="Left" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="37*"/>
+                <RowDefinition Height="265*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Margin="0,5,5,0" HorizontalAlignment="Right" Width="70" Height="33" VerticalAlignment="Top" Grid.RowSpan="2">Напрямки</Label>
+            <ListBox Grid.Row ="1" IsSynchronizedWithCurrentItem="true" Name="DirectionsList" 
+                     HorizontalContentAlignment="Stretch" ItemsSource="{Binding}" SelectionMode="Extended"
+                     SelectionChanged="DirectionsList_SelectionChanged" Margin="5">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock  ToolTip="{Binding Name}" Text="{Binding Number}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Додати напрямок" Click="DirectionsContextMenuAdd_OnClick"/>
+                        <MenuItem Header="Видалити напрямок" Click="DirectionsContextMenuDelete_OnClick"/>
+                        <MenuItem Header="Вище" Click="DirectionsContextMenuUp_OnClick"/>
+                        <MenuItem Header="Нижче" Click="DirectionsContextMenuDown_OnClick"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+            </ListBox>
+        </Grid>
+        <StackPanel DockPanel.Dock="Right" Margin="5">
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Button Margin="5" Click="ServicesContextMenuAdd_OnClick">Додати Послугу</Button>
+                <Button Margin="5" Click="ServicesContextMenuDelete_OnClick">Видалити вибрану послугу</Button>
+
+            </StackPanel>
+            <DataGrid CanUserAddRows="false" AutoGenerateColumns="False" HeadersVisibility="Column" ItemsSource="{Binding}"  Grid.Column="0" Grid.Row="0" Name ="Services" HorizontalAlignment="Left"  VerticalAlignment="Top">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Додати Послугу" Click="ServicesContextMenuAdd_OnClick"/>
+                        <MenuItem Header="Видалити" Click="ServicesContextMenuDelete_OnClick"/>
+                        <MenuItem Header="Вище" Click="ServicesContextMenuUp_OnClick"/>
+                        <MenuItem Header="Нижче" Click="ServicesContextMenuDown_OnClick"/>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+                <DataGrid.Resources>
+                    <Style x:Key="errorStyle" TargetType="{x:Type TextBox}">
+                        <!--<Setter Property="Padding" Value="-2"/>-->
+                        <Style.Triggers>
+                            <Trigger Property="Validation.HasError" Value="True">
+                                <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                        Path=(Validation.Errors)[0].ErrorContent}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.Resources>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Номенклатура" Binding="{Binding Path=Name,
+                        ValidatesOnDataErrors=True}" EditingElementStyle="{StaticResource errorStyle}"
+                        IsReadOnly="True" />
+
+                    <DataGridTextColumn Header="Кількість" EditingElementStyle="{StaticResource errorStyle}" 
+                        Binding="{Binding Path=Amount, ValidatesOnDataErrors=True }"/>
+
+                    <DataGridTextColumn Header="Вартість" IsReadOnly="True" 
+                        EditingElementStyle="{StaticResource errorStyle}" Binding="{Binding Path=Price,
+                        ValidatesOnDataErrors=True}"/>
+
+                    <DataGridTextColumn Header="Сума" IsReadOnly="True" Binding="{Binding Path=Total,
+                        ValidatesOnDataErrors=True}" />
+
+                </DataGrid.Columns>
+
+                <DataGrid.RowValidationErrorTemplate>
+                    <ControlTemplate>
+                        <Grid Margin="0,-2,0,-2"
+            ToolTip="{Binding RelativeSource={RelativeSource
+            FindAncestor, AncestorType={x:Type DataGridRow}},
+            Path=(Validation.Errors)[0].ErrorContent}">
+                            <Ellipse StrokeThickness="0" Fill="Red" 
+              Width="{TemplateBinding FontSize}" 
+              Height="{TemplateBinding FontSize}" />
+                            <TextBlock Text="!" FontSize="{TemplateBinding FontSize}" 
+              FontWeight="Bold" Foreground="White" 
+              HorizontalAlignment="Center"  />
+                        </Grid>
+                    </ControlTemplate>
+                </DataGrid.RowValidationErrorTemplate>
+            </DataGrid>
+        </StackPanel>
+    </DockPanel>
+
+</Window>
